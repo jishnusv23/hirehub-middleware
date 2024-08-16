@@ -4,6 +4,9 @@
   "description": "checking middleware for Express applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "url": "https://github.com/jishnusv23/hirehub-middleware"
+  },
   "scripts": {
     "build": "tsc"
   },
