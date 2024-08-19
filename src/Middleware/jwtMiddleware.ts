@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import {Request,Response,NextFunction} from 'express'
 import {generateAccessToken} from '../utils/generateAccessToken'
 
-interface userPaload{
+interface userPayload{
     _id:string,
     email:string,
     role:string
@@ -11,7 +11,7 @@ interface userPaload{
 declare global{
     namespace Express{
         interface Request{
-            user?:userPaload
+            user?:userPayload
         }
     }
 }
@@ -26,11 +26,11 @@ export const jwtMiddleware=async(req:Request,res:Response,next:NextFunction):Pro
             return next()
         }
 
-        let user:userPaload|undefined
+        let user:userPayload|undefined
         
         if(access_token){
             try{
-                user=await jwt.verify(access_token,process.env.ACCESS_TOKEN_SECRET!) as userPaload
+                user=await jwt.verify(access_token,process.env.ACCESS_TOKEN_SECRET!) as userPayload
             }catch(error:any){
                 if(error.name!=='TokenExpiredError'){
                     console.error('Access token verification error:',error);
@@ -42,10 +42,11 @@ export const jwtMiddleware=async(req:Request,res:Response,next:NextFunction):Pro
         }
         if(!user&&refresh_token){
             try{
-                user = await jwt.verify(
-                  "refresh_token",
+                user = user = await jwt.verify(
+                  refresh_token,
                   process.env.REFRESH_TOKEN_SECRET!
-                )as userPaload
+                ) as userPayload;
+
 
                 console.log('refresh token',user)
                 if(user){
