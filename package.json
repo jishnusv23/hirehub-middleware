@@ -1,6 +1,6 @@
 {
   "name": "hirehub-middleware-version",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "checking middleware for Express applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
